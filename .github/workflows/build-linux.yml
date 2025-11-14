@@ -18,22 +18,38 @@ jobs:
         with:
           python-version: "3.10"
 
-      # 3. Install Flet CLI and PyInstaller
-      - name: Install Flet CLI and PyInstaller
+      # 3. Install Flet CLI, PyInstaller and Pillow (for icon conversion)
+      - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install flet flet-cli pyinstaller
+          pip install flet flet-cli pyinstaller pillow
 
-      # 4. Build Linux AppImage (non-interactive)
+      # 4. Create required directories and convert icon
+      - name: Setup environment
+        run: |
+          mkdir -p app/assets
+          # Create a simple icon if it doesn't exist
+          python -c "from PIL import Image, ImageDraw, ImageFont; \
+                     img = Image.new('RGB', (256, 256), (0, 120, 215)); \
+                     d = ImageDraw.Draw(img); \
+                     try: \
+                         font = ImageFont.truetype('Arial', 120); \
+                     except: \
+                         font = ImageFont.load_default(); \
+                     d.text((30, 60), 'CA', fill=(255, 255, 255), font=font); \
+                     img.save('app/assets/icon.png')"
+
+      # 5. Build Linux AppImage
       - name: Build AppImage
         run: |
-          flet pack app/main.py \
+          flet pack frontend/main.py \
             --name "Clarikey Analytics" \
             --icon app/assets/icon.png \
-            --add-data "app:app" \
+            --add-data "backend:backend" \
+            --add-data "frontend:frontend" \
             --yes
 
-      # 5. Upload AppImage as artifact
+      # 6. Upload AppImage as artifact
       - name: Upload AppImage
         uses: actions/upload-artifact@v4
         with:
