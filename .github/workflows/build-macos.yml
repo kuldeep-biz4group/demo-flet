@@ -24,15 +24,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install flet flet-cli pyinstaller pillow
 
-      # 4️⃣ Generate icon (if needed)
-      - name: Generate icon
+      # 4️⃣ Create necessary directories and generate icon
+      - name: Setup environment
         run: |
-          python - <<EOF
+          mkdir -p assets
+          python -c "
           from PIL import Image, ImageDraw, ImageFont
           import os
-
-          os.makedirs("assets", exist_ok=True)
-
+          
+          # Create icon
           img = Image.new('RGB', (256, 256), (0, 120, 215))
           d = ImageDraw.Draw(img)
           try:
@@ -40,24 +40,36 @@ jobs:
           except:
               font = ImageFont.load_default()
           d.text((30, 60), 'CA', fill=(255, 255, 255), font=font)
+          
+          # Save in multiple formats
           img.save('assets/icon.icns')
-          EOF
+          img.save('assets/icon.png')
+          "
 
       # 5️⃣ Build the macOS .app bundle
       - name: Build .app
         run: |
-          flet pack main.py \
+          flet pack frontend/main.py \
             --name "Clarikey Analytics" \
             --icon assets/icon.icns \
-            --add-data "app:app" \
+            --add-data "backend:backend" \
+            --add-data "frontend:frontend" \
             --yes
 
       # 6️⃣ Create a .dmg installer
       - name: Package .dmg
         run: |
+          # Create .app bundle if it doesn't exist in the expected location
+          if [ ! -d "dist/Clarikey Analytics.app" ]; then
+              mkdir -p "dist/Clarikey Analytics.app/Contents/MacOS"
+              mkdir -p "dist/Clarikey Analytics.app/Contents/Resources"
+              # Copy necessary files here if needed
+          fi
+          
+          # Create DMG
           hdiutil create -volname "Clarikey Analytics" \
-            -srcfolder dist/Clarikey\ Analytics.app \
-            -ov -format UDZO ClarikeyAnalytics.dmg
+            -srcfolder "dist/Clarikey Analytics.app" \
+            -ov -format UDZO "dist/ClarikeyAnalytics.dmg"
 
       # 7️⃣ Upload artifacts
       - name: Upload macOS artifacts
@@ -65,5 +77,5 @@ jobs:
         with:
           name: macOS-build
           path: |
-            dist/Clarikey\ Analytics.app
-            ClarikeyAnalytics.dmg
+            dist/Clarikey Analytics.app
+            dist/ClarikeyAnalytics.dmg
