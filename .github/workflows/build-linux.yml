@@ -18,16 +18,13 @@ jobs:
         with:
           python-version: "3.10"
 
-      # 3. Upgrade pip (optional but recommended)
-      - name: Upgrade pip
-        run: python -m pip install --upgrade pip
-
-      # 4. Install Flet CLI
-      - name: Install Flet CLI
+      # 3. Install Flet CLI and PyInstaller
+      - name: Install Flet CLI and PyInstaller
         run: |
-          pip install flet flet-cli
+          pip install --upgrade pip
+          pip install flet flet-cli pyinstaller
 
-      # 5. Build Linux AppImage (non-interactive)
+      # 4. Build Linux AppImage (non-interactive)
       - name: Build AppImage
         run: |
           flet pack app/main.py \
@@ -36,7 +33,7 @@ jobs:
             --add-data "app:app" \
             --yes
 
-      # 6. Upload AppImage as artifact
+      # 5. Upload AppImage as artifact
       - name: Upload AppImage
         uses: actions/upload-artifact@v4
         with:
