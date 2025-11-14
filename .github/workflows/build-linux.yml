@@ -27,13 +27,14 @@ jobs:
         run: |
           pip install flet flet-cli
 
-      # 5. Build Linux AppImage
+      # 5. Build Linux AppImage (non-interactive)
       - name: Build AppImage
         run: |
           flet pack app/main.py \
             --name "Clarikey Analytics" \
             --icon app/assets/icon.png \
-            --add-data "app:app"
+            --add-data "app:app" \
+            --yes
 
       # 6. Upload AppImage as artifact
       - name: Upload AppImage
