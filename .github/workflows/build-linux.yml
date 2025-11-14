@@ -1,0 +1,39 @@
+name: Build Linux AppImage
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      # 3. Install Flet CLI
+      - name: Install Flet CLI
+        run: |
+          pip install flet flet-cli
+
+      # 4. Build Linux AppImage
+      - name: Build AppImage
+        run: |
+          flet pack app/main.py \
+            --name "Clarikey Analytics" \
+            --icon app/assets/icon.png \
+            --add-data "app:app"
+
+      # 5. Upload AppImage as artifact
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v3
+        with:
+          name: Clarikey-AppImage
+          path: dist/*
