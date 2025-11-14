@@ -1,0 +1,249 @@
+{
+  "report_type": "screening",
+  "report_name": "Universal Screening Report",
+  "description": "Seasonal (BOY, MOY, EOY) universal screening reports for benchmark assessment",
+  
+  "variants": {
+    "early_reading": {
+      "name": "Early Reading Screener",
+      "grade_range": "K-1",
+      "subject": "Reading",
+      "metrics": [
+        {
+          "field": "composite_score",
+          "label": "Composite Reading Score",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "points"
+        },
+        {
+          "field": "letter_sounds",
+          "label": "Letter Sounds Fluency",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "sounds/min"
+        },
+        {
+          "field": "phoneme_segmentation",
+          "label": "Phoneme Segmentation",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "correct"
+        },
+        {
+          "field": "nonsense_words",
+          "label": "Nonsense Word Fluency",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "correct"
+        }
+      ],
+      "risk_thresholds": {
+        "high_risk": {"max": 25},
+        "some_risk": {"min": 25, "max": 50},
+        "low_risk": {"min": 50}
+      },
+      "readiness_levels": ["Not Ready", "Approaching Ready", "Ready", "Advanced"]
+    },
+    "areading": {
+      "name": "aReading Screener",
+      "grade_range": "2-12",
+      "subject": "Reading",
+      "metrics": [
+        {
+          "field": "composite_score",
+          "label": "Composite Reading Score",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "points"
+        },
+        {
+          "field": "oral_reading_fluency",
+          "label": "Oral Reading Fluency",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "WRC/min"
+        },
+        {
+          "field": "comprehension",
+          "label": "Reading Comprehension",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "points"
+        },
+        {
+          "field": "vocabulary",
+          "label": "Vocabulary",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "points"
+        }
+      ],
+      "risk_thresholds": {
+        "high_risk": {"max": 40},
+        "some_risk": {"min": 40, "max": 70},
+        "low_risk": {"min": 70}
+      },
+      "readiness_levels": ["Below Basic", "Basic", "Proficient", "Advanced"]
+    },
+    "early_math": {
+      "name": "Early Math Screener",
+      "grade_range": "K-1",
+      "subject": "Math",
+      "metrics": [
+        {
+          "field": "composite_score",
+          "label": "Composite Math Score",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "points"
+        },
+        {
+          "field": "number_identification",
+          "label": "Number Identification",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "correct"
+        },
+        {
+          "field": "quantity_discrimination",
+          "label": "Quantity Discrimination",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "correct"
+        },
+        {
+          "field": "missing_number",
+          "label": "Missing Number",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "correct"
+        }
+      ],
+      "risk_thresholds": {
+        "high_risk": {"max": 20},
+        "some_risk": {"min": 20, "max": 45},
+        "low_risk": {"min": 45}
+      },
+      "readiness_levels": ["Not Ready", "Approaching Ready", "Ready", "Advanced"]
+    },
+    "amath": {
+      "name": "aMath Screener",
+      "grade_range": "2-12",
+      "subject": "Math",
+      "metrics": [
+        {
+          "field": "composite_score",
+          "label": "Composite Math Score",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "points"
+        },
+        {
+          "field": "computation",
+          "label": "Math Computation",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "correct"
+        },
+        {
+          "field": "concepts_applications",
+          "label": "Concepts & Applications",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "points"
+        },
+        {
+          "field": "problem_solving",
+          "label": "Problem Solving",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "points"
+        }
+      ],
+      "risk_thresholds": {
+        "high_risk": {"max": 35},
+        "some_risk": {"min": 35, "max": 65},
+        "low_risk": {"min": 65}
+      },
+      "readiness_levels": ["Below Basic", "Basic", "Proficient", "Advanced"]
+    }
+  },
+  
+  "screening_periods": ["BOY", "MOY", "EOY"],
+  
+  "input_mapping": {
+    "required_fields": [
+      "student_id",
+      "student_name",
+      "grade",
+      "assessment_date",
+      "screening_period",
+      "teacher_name",
+      "school_name",
+      "district_name"
+    ],
+    "date_format": "%Y-%m-%d",
+    "merge_key": "student_id"
+  },
+  
+  "calculation_rules": {
+    "composite_calculation": {
+      "method": "weighted_average",
+      "description": "Calculate composite score from individual metric scores"
+    },
+    "percentile_rank": {
+      "enabled": true,
+      "description": "Calculate student's percentile rank within grade level"
+    }
+  },
+  
+  "pdf_layout": {
+    "page_size": "LETTER",
+    "margins": {
+      "top": 0.75,
+      "bottom": 0.75,
+      "left": 0.75,
+      "right": 0.75
+    },
+    "fonts": {
+      "title": {"family": "Helvetica-Bold", "size": 16},
+      "heading": {"family": "Helvetica-Bold", "size": 12},
+      "body": {"family": "Helvetica", "size": 10},
+      "small": {"family": "Helvetica", "size": 8}
+    },
+    "colors": {
+      "high_risk": "#D32F2F",
+      "some_risk": "#F57C00",
+      "low_risk": "#388E3C",
+      "header_bg": "#1976D2",
+      "alt_row": "#F5F5F5"
+    }
+  },
+  
+  "understanding_page": {
+    "title": "Understanding This Report",
+    "sections": [
+      {
+        "heading": "Purpose",
+        "content": "This Universal Screening Report provides a comprehensive snapshot of student performance at key points during the school year (Beginning, Middle, and End of Year). It identifies students who may need additional support or enrichment."
+      },
+      {
+        "heading": "Composite Scores",
+        "content": "The composite score combines multiple assessment measures to provide an overall indicator of student performance. This score is compared against grade-level benchmarks to determine risk levels."
+      },
+      {
+        "heading": "Risk Indicators",
+        "content": "Color-coded indicators help identify students' current performance levels:\n• Green (Low Risk): Student is meeting or exceeding grade-level expectations\n• Orange (Some Risk): Student is approaching benchmarks but may need monitoring\n• Red (High Risk): Student is significantly below benchmarks and requires intervention"
+      },
+      {
+        "heading": "Readiness Levels",
+        "content": "Readiness levels indicate whether students have the foundational skills needed for grade-level content. Use these indicators to plan differentiated instruction and intervention strategies."
+      },
+      {
+        "heading": "Using This Data",
+        "content": "Screening data should be used in conjunction with other assessments and classroom observations to make informed instructional decisions. Consider forming intervention groups based on similar needs and monitoring progress regularly."
+      }
+    ]
+  }
+}

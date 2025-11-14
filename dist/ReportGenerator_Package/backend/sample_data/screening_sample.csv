@@ -1,0 +1,6 @@
+student_id,student_name,grade,assessment_date,screening_period,teacher_name,school_name,district_name,composite_score,letter_sounds,phoneme_segmentation,nonsense_words
+2001,Sarah Johnson,K,2024-09-15,BOY,Ms. Anderson,Washington Elementary,Central District,45,18,12,8
+2002,David Martinez,K,2024-09-15,BOY,Ms. Anderson,Washington Elementary,Central District,62,25,18,15
+2003,Lisa Chen,1,2024-09-15,BOY,Mr. Roberts,Washington Elementary,Central District,58,22,16,14
+2004,James Wilson,K,2024-09-15,BOY,Ms. Anderson,Washington Elementary,Central District,28,10,6,4
+2005,Emily Taylor,1,2024-09-15,BOY,Mr. Roberts,Washington Elementary,Central District,72,28,22,18

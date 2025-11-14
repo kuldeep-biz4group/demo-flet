@@ -1,0 +1,210 @@
+{
+  "report_type": "progress_monitoring",
+  "report_name": "Progress Monitoring Report",
+  "description": "Bi-weekly reporting designed to track ongoing growth",
+  
+  "variants": {
+    "early_reading": {
+      "name": "Early Reading Progress Monitoring",
+      "grade_range": "K-1",
+      "subject": "Reading",
+      "metrics": [
+        {
+          "field": "words_read_correct",
+          "label": "Words Read Correct per Minute (WRC/min)",
+          "type": "numeric",
+          "precision": 1,
+          "unit": "WRC/min"
+        },
+        {
+          "field": "accuracy",
+          "label": "Accuracy (%)",
+          "type": "percentage",
+          "precision": 1,
+          "unit": "%"
+        },
+        {
+          "field": "letter_sounds",
+          "label": "Letter Sounds Fluency",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "sounds/min"
+        }
+      ],
+      "risk_thresholds": {
+        "high_risk": {"max": 20},
+        "some_risk": {"min": 20, "max": 40},
+        "low_risk": {"min": 40}
+      }
+    },
+    "cbmr_english": {
+      "name": "CBMR English Progress Monitoring",
+      "grade_range": "2-12",
+      "subject": "Reading",
+      "metrics": [
+        {
+          "field": "words_read_correct",
+          "label": "Words Read Correct per Minute (WRC/min)",
+          "type": "numeric",
+          "precision": 1,
+          "unit": "WRC/min"
+        },
+        {
+          "field": "accuracy",
+          "label": "Accuracy (%)",
+          "type": "percentage",
+          "precision": 1,
+          "unit": "%"
+        },
+        {
+          "field": "comprehension",
+          "label": "Comprehension Score",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "points"
+        }
+      ],
+      "risk_thresholds": {
+        "high_risk": {"max": 50},
+        "some_risk": {"min": 50, "max": 90},
+        "low_risk": {"min": 90}
+      }
+    },
+    "early_math": {
+      "name": "Early Math Progress Monitoring",
+      "grade_range": "K-1",
+      "subject": "Math",
+      "metrics": [
+        {
+          "field": "items_correct",
+          "label": "Items Correct per 10 Minutes",
+          "type": "numeric",
+          "precision": 1,
+          "unit": "items/10min"
+        },
+        {
+          "field": "number_identification",
+          "label": "Number Identification",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "correct"
+        },
+        {
+          "field": "quantity_discrimination",
+          "label": "Quantity Discrimination",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "correct"
+        }
+      ],
+      "risk_thresholds": {
+        "high_risk": {"max": 15},
+        "some_risk": {"min": 15, "max": 30},
+        "low_risk": {"min": 30}
+      }
+    },
+    "cbm_math": {
+      "name": "CBM Math Progress Monitoring",
+      "grade_range": "2-12",
+      "subject": "Math",
+      "metrics": [
+        {
+          "field": "items_correct",
+          "label": "Items Correct per 10 Minutes",
+          "type": "numeric",
+          "precision": 1,
+          "unit": "items/10min"
+        },
+        {
+          "field": "computation_fluency",
+          "label": "Computation Fluency",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "correct"
+        },
+        {
+          "field": "problem_solving",
+          "label": "Problem Solving",
+          "type": "numeric",
+          "precision": 0,
+          "unit": "correct"
+        }
+      ],
+      "risk_thresholds": {
+        "high_risk": {"max": 20},
+        "some_risk": {"min": 20, "max": 40},
+        "low_risk": {"min": 40}
+      }
+    }
+  },
+  
+  "input_mapping": {
+    "required_fields": [
+      "student_id",
+      "student_name",
+      "grade",
+      "assessment_date",
+      "teacher_name",
+      "school_name"
+    ],
+    "date_format": "%Y-%m-%d",
+    "merge_key": "student_id"
+  },
+  
+  "calculation_rules": {
+    "delta_calculation": {
+      "method": "latest_vs_prior",
+      "description": "Calculate difference between latest assessment and immediately prior assessment"
+    },
+    "growth_indicator": {
+      "positive": "↑",
+      "negative": "↓",
+      "neutral": "→"
+    }
+  },
+  
+  "pdf_layout": {
+    "page_size": "LETTER",
+    "margins": {
+      "top": 0.75,
+      "bottom": 0.75,
+      "left": 0.75,
+      "right": 0.75
+    },
+    "fonts": {
+      "title": {"family": "Helvetica-Bold", "size": 16},
+      "heading": {"family": "Helvetica-Bold", "size": 12},
+      "body": {"family": "Helvetica", "size": 10},
+      "small": {"family": "Helvetica", "size": 8}
+    },
+    "colors": {
+      "high_risk": "#D32F2F",
+      "some_risk": "#F57C00",
+      "low_risk": "#388E3C",
+      "header_bg": "#1976D2",
+      "alt_row": "#F5F5F5"
+    }
+  },
+  
+  "understanding_page": {
+    "title": "Understanding This Report",
+    "sections": [
+      {
+        "heading": "Purpose",
+        "content": "This Progress Monitoring Report tracks student growth over time through bi-weekly assessments. It shows the change (delta) between the most recent assessment and the immediately prior assessment."
+      },
+      {
+        "heading": "How to Read the Data",
+        "content": "Each metric shows the current score, previous score, and the change (Δ). Positive changes indicate growth, while negative changes suggest areas needing additional support."
+      },
+      {
+        "heading": "Risk Indicators",
+        "content": "Color-coded indicators help identify students who may need intervention:\n• Green (Low Risk): Student is performing at or above benchmark\n• Orange (Some Risk): Student may benefit from targeted support\n• Red (High Risk): Student requires immediate intervention"
+      },
+      {
+        "heading": "Next Steps",
+        "content": "Use this data to inform instructional decisions, adjust interventions, and communicate progress with families and support teams."
+      }
+    ]
+  }
+}

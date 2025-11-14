@@ -1,0 +1,19 @@
+# Frontend Framework
+flet>=0.21.0
+
+# Backend API
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+openpyxl>=3.1.0
+
+# PDF Generation
+reportlab>=4.0.0
+
+# Utilities
+pydantic>=2.0.0
+python-dateutil>=2.8.2

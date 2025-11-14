@@ -1,0 +1,8 @@
+flet>=0.21.0
+pillow>=10.0.0
+fastapi
+uvicorn
+pandas
+numpy
+python-multipart
+python-dotenv

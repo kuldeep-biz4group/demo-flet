@@ -1,0 +1,10 @@
+student_id,student_name,grade,assessment_date,teacher_name,school_name,district_name,words_read_correct,accuracy,letter_sounds,comprehension,items_correct,fluency_score
+1001,John Smith,K,2024-01-15,Ms. Johnson,Lincoln Elementary,Central District,15,85.5,12,8,10,15
+1001,John Smith,K,2024-01-29,Ms. Johnson,Lincoln Elementary,Central District,18,87.2,15,9,12,18
+1001,John Smith,K,2024-02-12,Ms. Johnson,Lincoln Elementary,Central District,22,89.0,18,10,14,22
+1002,Emma Davis,K,2024-01-15,Ms. Johnson,Lincoln Elementary,Central District,25,92.0,20,12,15,25
+1002,Emma Davis,K,2024-01-29,Ms. Johnson,Lincoln Elementary,Central District,28,93.5,22,14,17,28
+1002,Emma Davis,K,2024-02-12,Ms. Johnson,Lincoln Elementary,Central District,32,94.8,25,15,19,32
+1003,Michael Brown,1,2024-01-15,Mr. Thompson,Lincoln Elementary,Central District,35,88.0,28,16,20,35
+1003,Michael Brown,1,2024-01-29,Mr. Thompson,Lincoln Elementary,Central District,38,89.5,30,18,22,38
+1003,Michael Brown,1,2024-02-12,Mr. Thompson,Lincoln Elementary,Central District,42,91.0,33,20,24,42
