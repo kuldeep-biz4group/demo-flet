@@ -18,26 +18,30 @@ jobs:
         with:
           python-version: "3.10"
 
-      # 3. Install Flet CLI, PyInstaller and Pillow (for icon conversion)
+      # 3. Install dependencies
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install flet flet-cli pyinstaller pillow
 
-      # 4. Create required directories and convert icon
-      - name: Setup environment
+      # 4. Generate icon
+      - name: Generate icon
         run: |
-          mkdir -p app/assets
-          # Create a simple icon if it doesn't exist
-          python -c "from PIL import Image, ImageDraw, ImageFont; \
-                     img = Image.new('RGB', (256, 256), (0, 120, 215)); \
-                     d = ImageDraw.Draw(img); \
-                     try: \
-                         font = ImageFont.truetype('Arial', 120); \
-                     except: \
-                         font = ImageFont.load_default(); \
-                     d.text((30, 60), 'CA', fill=(255, 255, 255), font=font); \
-                     img.save('app/assets/icon.png')"
+          python - <<EOF
+          from PIL import Image, ImageDraw, ImageFont
+          import os
+
+          os.makedirs("app/assets", exist_ok=True)
+
+          img = Image.new('RGB', (256, 256), (0, 120, 215))
+          d = ImageDraw.Draw(img)
+          try:
+              font = ImageFont.truetype('Arial', 120)
+          except:
+              font = ImageFont.load_default()
+          d.text((30, 60), 'CA', fill=(255, 255, 255), font=font)
+          img.save('app/assets/icon.png')
+          EOF
 
       # 5. Build Linux AppImage
       - name: Build AppImage
